@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Klass</title>
+
+<script src="Source/Klass.js"></script>
+<script src="Source/Klass.Options.js"></script>
+<script src="Source/Klass.Events.js"></script>
+
+<script>
+
+var Person = new Klass(null, {
+	
+	energy: 10,
+
+	init: function(name){
+		this.name = name;
+		console.log('woot! ' + this.energy);
+	},
+
+	eat: function(){
+		this.energy += 10;
+	},
+
+	toString: function(){
+		return this.name + ' has ' + this.energy + ' energy';
+	}
+
+});
+
+var nobody = new Person('nobody');
+console.log(nobody);
+
+var Ninja = new Klass(Person, {
+
+	energy: 20,
+
+	options: {
+		size: 190
+	},
+
+	init: function(options){
+		this.setOptions(options);
+	},
+
+	eat: function(){
+		this.energy += 5;
+		this.parent('eat');
+	},
+
+	toString: function(){
+		return 'this ninja called ' + this.name + ' has ' + this.energy + ' energy';
+	}
+
+}).implement(Klass.Options, Klass.Events);
+
+var arian = new Ninja('arian');
+console.log(arian, arian + '');
+
+
+</script>
+
+</head>
+<body>
+	TODO write content
+</body>
+</html>
