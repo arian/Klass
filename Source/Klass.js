@@ -33,6 +33,15 @@ var Klass = function Klass(parent, object){
 		return kls;
 	};
 
+	// Decorate old methods
+	kls.decorate = function(decorators){
+		for (var name in decorators){
+			var method = proto[name];
+			if (method && typeof method == 'function') proto[name] = decorators[name].call(kls, method);
+		}
+		return kls;
+	};
+
 	// Parent method
 	var parentProto = parent.prototype;
 	proto.parent = function(method, args){

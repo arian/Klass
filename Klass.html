@@ -7,6 +7,8 @@
 <script src="Source/Klass.js"></script>
 <script src="Source/Klass.Options.js"></script>
 <script src="Source/Klass.Events.js"></script>
+<script src="Source/Klass.Map.js"></script>
+<script src="Source/Klass.Bind.js"></script>
 
 <script>
 
@@ -58,11 +60,69 @@ var Ninja = new Klass(Person, {
 var arian = new Ninja('arian');
 console.log(arian, arian + '');
 
+// Map
+
+var map = new Klass.Map().set(4, 3);
+console.log(map.get(4)); // 3
+
+map.set(4, 5).set(5, 6);
+console.log(map.get(4), map.get(5)); // 5, 6
+
+map.each(function(value, index){
+	console.log(value, index);
+});
+
+
+// Binding
+var A = new Klass(null, {
+	
+	init: function(element){
+		this.element = document.getElementById(element);
+		this.element.addEventListener('click', this.bound('click'), false);
+	},
+	
+	click: function(event){
+		event.preventDefault();
+		console.log('foo', event);
+	}
+
+}, Klass.Bind);
+
+window.addEventListener('DOMContentLoaded', function(){
+
+	new A('foo');
+
+}, false);
+
+
+// Decorate
+
+var Rockstar = new Klass(Person, {
+	rock: function(){
+		console.log('really loud!');
+	}
+});
+
+Rockstar.decorate({
+	rock: function(previous){
+		return function(louder){
+			console.log('I rock');
+			previous.call(this);
+		}
+	}
+});
+
+var me = new Rockstar('Arian');
+me.rock();
+
 
 </script>
 
 </head>
 <body>
 	TODO write content
+
+	<a href="#" id="foo">click me</a>
+
 </body>
 </html>
