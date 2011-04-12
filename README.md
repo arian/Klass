@@ -34,6 +34,7 @@ Also only in Chrome and Node
 - myClass.implement - add new methods to the prototype
 - myClass.extend - add static functions to the class
 - myClass.decorate - decorate or replace old methods
+- myClass.alias - aliases to methods
 
 ### Extending Classes
 
@@ -51,3 +52,7 @@ Also only in Chrome and Node
 		}
 	});
 
+### Notes
+
+Most stuff is pretty directly taken from MooTools.  Use that if you want something
+stable, it's FTW!
